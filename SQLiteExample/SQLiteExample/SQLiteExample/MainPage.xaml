@@ -5,7 +5,8 @@
   <StackLayout>
     <Label Text="Items from DB" VerticalOptions="Center" HorizontalOptions="Center" />
     <Label x:Name="ItemsCount" VerticalOptions="Center"></Label>
-    <ListView x:Name="ListView"></ListView>
+    <ListView x:Name="ToDoItemsListView"></ListView>
+  
   </StackLayout>
 
 </ContentPage>

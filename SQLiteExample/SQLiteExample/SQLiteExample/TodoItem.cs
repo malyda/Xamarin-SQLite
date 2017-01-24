@@ -7,7 +7,7 @@ using SQLite;
 
 namespace SQLiteExample
 {
-    class TodoItem
+  public  class TodoItem
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }

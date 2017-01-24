@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace SQLiteExample
 {
-    class TodoItemDatabase
+  public  class TodoItemDatabase
     {
         private SQLiteAsyncConnection database;
 

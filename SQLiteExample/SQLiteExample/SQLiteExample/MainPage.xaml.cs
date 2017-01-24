@@ -14,16 +14,16 @@ namespace SQLiteExample
         public MainPage()
         {
             InitializeComponent();
-            var dbConnection = Database;
+            var dbConnection = App.Database;
 
-            TodoItemDatabase todoItemDatabase = Database;
+            TodoItemDatabase todoItemDatabase = App.Database;
             TodoItem item = new TodoItem();
             item.Name = "item";
             item.Text = "item text";
-            _database.SaveItemAsync(item);
+            App.Database.SaveItemAsync(item);
 
 
-            var itemsFromDb = _database.GetItemsAsync().Result;
+            var itemsFromDb = App.Database.GetItemsAsync().Result;
             
             Debug.WriteLine("                             ");
             Debug.WriteLine("                             ");
@@ -41,21 +41,7 @@ namespace SQLiteExample
 
 
             ItemsCount.Text = "Items in Database " + itemsFromDb.Count;
-            ListView.ItemsSource = itemsFromDb;
-        }
-
-        private static TodoItemDatabase _database;
-
-        static TodoItemDatabase Database
-        {
-            get
-            {
-                if (_database == null)
-                {
-                    _database = new TodoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
-                }
-                return _database;
-            }
+            ToDoItemsListView.ItemsSource = itemsFromDb;
         }
     }
 }
