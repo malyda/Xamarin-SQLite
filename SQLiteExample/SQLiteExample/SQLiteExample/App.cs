@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using SQLiteExample.Abstract;
 using Xamarin.Forms;
 
 namespace SQLiteExample
@@ -12,6 +12,8 @@ namespace SQLiteExample
         public App()
         {
             MainPage = new NavigationPage(new MainPage());
+            // OR abstract
+            // MainPage = new NavigationPage(new AbstractDatabaseAccess());
         }
 
         protected override void OnStart()
@@ -37,9 +39,30 @@ namespace SQLiteExample
             {
                 if (_database == null)
                 {
-                    _database = new TodoItemDatabase(DependencyService.Get<IFileHelper>().GetLocalFilePath("TodoSQLite.db3"));
+                    IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
+                    _database = new TodoItemDatabase(filehelperInstance.GetLocalFilePath("TodoSQLite.db3"));
                 }
                 return _database;
+            }
+        }
+
+
+        /// <summary>
+        /// Abstract version
+        /// </summary>
+
+        private static DatabaseAccess _databaseAccess;
+
+        public static DatabaseAccess DatabaseAccess
+        {
+            get
+            {
+                if (_databaseAccess == null)
+                {
+                    IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
+                    _databaseAccess = new DatabaseAccess(filehelperInstance.GetLocalFilePath("TodoSQLite.db3"));
+                }
+                return _databaseAccess;
             }
         }
     }
