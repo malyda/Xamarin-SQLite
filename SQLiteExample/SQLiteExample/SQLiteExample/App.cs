@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SQLiteExample.Abstract;
+using SQLiteExample.SQLiteExtensions;
 using Xamarin.Forms;
 
 namespace SQLiteExample
@@ -11,9 +12,12 @@ namespace SQLiteExample
     {
         public App()
         {
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new SQLiteExtensionsPage());
             // OR abstract
             // MainPage = new NavigationPage(new AbstractDatabaseAccess());
+
+            // OR SQLiteExtensions
+            // MainPage = new NavigationPage(new SQLiteExtensionsPage());
         }
 
         protected override void OnStart()
