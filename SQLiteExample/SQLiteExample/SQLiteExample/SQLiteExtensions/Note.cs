@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SQLite;
+using SQLiteExample.Abstract;
 using SQLiteNetExtensions.Attributes;
 
 namespace SQLiteExample.SQLiteExtensions
 {
-    class Note
+    /// <summary>
+    /// [PrimaryKey, AutoIncrement] Id ihnerits from ATabe
+    /// </summary>
+    class Note : ATable
     {
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
         public String Text { get; set; }
 
         [ForeignKey(typeof(Category))]
-        public int Category_id { get; set; }
+        public int CategoryId { get; set; }
 
         [ManyToOne]      // Many to one relationship with Stock
         public Category Category { get; set; }

@@ -48,6 +48,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLiteExtensions\Category.cs" />
+    <Compile Include="SQLiteExtensions\DataAccess.cs" />
     <Compile Include="SQLiteExtensions\Note.cs" />
     <Compile Include="SQLiteExtensions\SQLiteExtensionsPage.xaml.cs">
       <DependentUpon>SQLiteExtensionsPage.xaml</DependentUpon>
@@ -86,7 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

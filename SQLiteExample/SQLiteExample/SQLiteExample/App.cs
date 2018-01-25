@@ -44,9 +44,18 @@ namespace SQLiteExample
                 if (_database == null)
                 {
                     IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
-                    _database = new TodoItemDatabase(filehelperInstance.GetLocalFilePath("TodoSQLite.db3"));
+                    _database = new TodoItemDatabase(DbPath);
                 }
                 return _database;
+            }
+        }
+
+        public static string DbPath
+        {
+            get
+            {
+                IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
+                return filehelperInstance.GetLocalFilePath("TodoSQLite.db3");
             }
         }
 
