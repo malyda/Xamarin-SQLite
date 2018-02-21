@@ -14,57 +14,112 @@ namespace SQLiteExample.SQLiteExtensions
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SQLiteExtensionsPage : ContentPage
     {
-        readonly DataAccess _dataAccess = new DataAccess();
+        readonly DatabaseAccess _dataAccess = new DatabaseAccess(App.DbPath);
 
         public SQLiteExtensionsPage()
         {
             InitializeComponent();
-          
+            // Insert in one query
+            //InsertAsOne();
+
+            // OR
+            // Insert separated then update references
+             InsertOneByOneAndUpdate();
+        }
+
+        /// <summary>
+        /// Insert student with all dependencies in one query
+        /// </summary>
+        private void InsertAsOne()
+        {
+            // Create Student with all information
+            Student student = new Student()
+            {
+                Name = "Jan Novák",
+                ClassRoom = new ClassRoom()
+                {
+                    Name = "3ITB"
+                },
+                Marks = new List<Mark>()
+                {
+                    new Mark()
+                    {
+                        Value = 1,
+                        Subject = new Subject()
+                        {
+                            Name = "ČJ"
+                        }
+                    }
+                }
+            };
+
+            // Insert student in database
+            // All tables are filled with correct information
+            _dataAccess.InsertWithChildren(student);
+
+            // Get all students from database with all references as objects
+            List<Student> students = _dataAccess.GetAllWithChildren<Student>();
+            StudentsListView.ItemsSource = students;
+        }
+
+        /// <summary>
+        /// Insert separated Mark, Student, Classroom and Subject, then update references in database
+        /// </summary>
+        private void InsertOneByOneAndUpdate()
+        {
             // Create base objects
-            Note note = new Note()
+            Student student = new Student()
             {
-                Text = "text",
+                Name = "Jan Novák"
             };
 
-            Category category = new Category()
+            ClassRoom classRoom = new ClassRoom()
             {
-                Text = "text category"
+                Name = "3ITB"
             };
 
+            Subject subject = new Subject()
+            {
+                Name = "ČJ"
+            };
+
+            Mark mark = new Mark()
+            {
+                Value = 1
+            };
 
             // Insert them to database
-            // Both Note and Category have AutoIncrement which is created by insertion into database
-            _dataAccess.Insert(note);
-            _dataAccess.Insert(category);
+            _dataAccess.Insert(student);
+            _dataAccess.Insert(classRoom);
+            _dataAccess.Insert(mark);
+            _dataAccess.Insert(subject);
 
-            // Set Category to Note
-            note.Category = category;
+            // Add student reference to classroom
+            student.ClassRoom = classRoom;
 
-            // Update Note with all references
-            // In this case creates link between note and category from line above
-            _dataAccess.UpdateWithChildren(note);
+            // Update student with references
+            _dataAccess.UpdateWithChildren(student);
 
-            // Get all notes where is id below 5
-            List<Note> enumerable = _dataAccess.GetAllWithChildrenBellowId<Note>(5);
 
-            // Set all notes to Category
-            category.Notes = enumerable;
+            // Change mark value and set subject
+            mark.Value = 2;
+            mark.Subject = subject;
 
-            // Update category with new references
-            // Note.CategoryId is updated automatically
-            _dataAccess.UpdateWithChildren<Category>(category);
+            // Update changed mark with references
+            _dataAccess.UpdateWithChildren(mark);
 
-            // Get all Notes from database
-            List<Note> notes = _dataAccess.GetAllWithChildren<Note>();
+            // Add mark to student
+            student.Marks = new List<Mark>()
+            {
+                mark
+            };
 
-            // Get all Categories from database
-            List<Category> categories = _dataAccess.GetAllWithChildren<Category>();
+            // Update changed student
+            _dataAccess.UpdateWithChildren(student);
 
-            // Now you can use Note.Category as object references instead of plain IDs
-            string categoryText = notes.First().Category.Text;
-
-            // Or get all Categories with all notes
-            List<Note> notesFromCategory = categories.Last().Notes;
+            // Get all students from database with all references as objects
+            List<Student> students = _dataAccess.GetAllWithChildren<Student>().ToList();
+            StudentsListView.ItemsSource = students;
         }
     }
 }

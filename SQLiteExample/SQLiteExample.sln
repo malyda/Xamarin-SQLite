@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteExample", "SQLiteExample\SQLiteExample\SQLiteExample.csproj", "{1B53DB26-F94C-47CF-8841-21F5C0C417BA}"
 EndProject
@@ -176,6 +176,7 @@ Global
 		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.AppStore|x64.ActiveCfg = AppStore|iPhone
 		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.AppStore|x86.ActiveCfg = AppStore|iPhone
 		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.Debug|Any CPU.Build.0 = Debug|iPhone
 		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.Debug|ARM.ActiveCfg = Debug|iPhone
 		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{FF36860F-C3F2-4EAF-8902-C2879EE4F31A}.Debug|iPhone.Build.0 = Debug|iPhone
@@ -256,5 +257,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5B3BF5F9-3617-4D2A-B49E-6DB5F224A7F9}
 	EndGlobalSection
 EndGlobal

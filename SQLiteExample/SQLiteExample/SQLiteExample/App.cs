@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SQLiteExample.Abstract;
+using SQLiteExample.SimpleDatabase;
 using SQLiteExample.SQLiteExtensions;
 using Xamarin.Forms;
 
@@ -12,7 +13,8 @@ namespace SQLiteExample
     {
         public App()
         {
-            MainPage = new NavigationPage(new SQLiteExtensionsPage());
+            MainPage = new NavigationPage(new MainPage());
+            
             // OR abstract
             // MainPage = new NavigationPage(new AbstractDatabaseAccess());
 
@@ -37,45 +39,32 @@ namespace SQLiteExample
 
         private static TodoItemDatabase _database;
 
+        /// <summary>
+        /// Good approach is return instance of database access layer instead of db path
+        /// </summary>
         public static TodoItemDatabase Database
         {
             get
             {
                 if (_database == null)
                 {
-                    IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
                     _database = new TodoItemDatabase(DbPath);
                 }
+
                 return _database;
             }
         }
 
+        /// <summary>
+        /// Used only for Abstract and SQLiteExtensions database access
+        /// Path should be private
+        /// </summary>
         public static string DbPath
         {
             get
             {
                 IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
                 return filehelperInstance.GetLocalFilePath("TodoSQLite.db3");
-            }
-        }
-
-
-        /// <summary>
-        /// Abstract version
-        /// </summary>
-
-        private static DatabaseAccess _databaseAccess;
-
-        public static DatabaseAccess DatabaseAccess
-        {
-            get
-            {
-                if (_databaseAccess == null)
-                {
-                    IFileHelper filehelperInstance = DependencyService.Get<IFileHelper>();
-                    _databaseAccess = new DatabaseAccess(filehelperInstance.GetLocalFilePath("TodoSQLite.db3"));
-                }
-                return _databaseAccess;
             }
         }
     }

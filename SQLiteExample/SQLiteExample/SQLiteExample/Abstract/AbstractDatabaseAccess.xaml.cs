@@ -17,19 +17,21 @@ namespace SQLiteExample.Abstract
         {
             InitializeComponent();
 
-            InitializeComponent();
-            var dbConnection = App.Database;
+            // Create instance of database layer
+            DatabaseAccess todoItemDatabase = new DatabaseAccess(App.DbPath);
 
-            DatabaseAccess todoItemDatabase = App.DatabaseAccess;
-
+            // Create object to insert to database
             TodoItemConcretization item = new TodoItemConcretization();
             item.Name = "item";
             item.Text = "item text";
+
+            // Insert
             todoItemDatabase.SaveItemAsync(item);
 
-
+            // Get all object from database based on object type
             var itemsFromDb = todoItemDatabase.GetItemsAsync<TodoItemConcretization>().Result;
 
+            // Write all objects from database to console
             Debug.WriteLine("                             ");
             Debug.WriteLine("                             ");
             Debug.WriteLine("                             ");
@@ -44,7 +46,7 @@ namespace SQLiteExample.Abstract
             Debug.WriteLine("                             ");
             Debug.WriteLine("                             ");
 
-
+            // Display all objects from database in Listview
             ItemsCount.Text = "Items in Database " + itemsFromDb.Count;
             ToDoItemsListView.ItemsSource = itemsFromDb;
         }

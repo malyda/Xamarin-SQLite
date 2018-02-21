@@ -4,10 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
-namespace SQLiteExample
+namespace SQLiteExample.SimpleDatabase
 {
     public partial class MainPage : ContentPage
     {
@@ -23,7 +22,7 @@ namespace SQLiteExample
             App.Database.SaveItemAsync(item);
 
 
-            var itemsFromDb = App.Database.GetItemsAsync().Result;
+            var itemsFromDb = App.Database.GetItemsAsync();
             
             Debug.WriteLine("                             ");
             Debug.WriteLine("                             ");
