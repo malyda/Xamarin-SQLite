@@ -26,7 +26,7 @@ namespace SQLiteExample.Abstract
             item.Text = "item text";
 
             // Insert
-            todoItemDatabase.SaveItemAsync(item);
+            todoItemDatabase.InsertOrUpdateItemAsync(item);
 
             // Get all object from database based on object type
             var itemsFromDb = todoItemDatabase.GetItemsAsync<TodoItemConcretization>().Result;

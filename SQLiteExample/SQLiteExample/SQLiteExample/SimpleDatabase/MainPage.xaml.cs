@@ -19,10 +19,10 @@ namespace SQLiteExample.SimpleDatabase
             TodoItem item = new TodoItem();
             item.Name = "item";
             item.Text = "item text";
-            App.Database.SaveItemAsync(item);
+            App.Database.InsertOrUpdateItem(item);
 
 
-            var itemsFromDb = App.Database.GetItemsAsync();
+            var itemsFromDb = App.Database.GetItems();
             
             Debug.WriteLine("                             ");
             Debug.WriteLine("                             ");

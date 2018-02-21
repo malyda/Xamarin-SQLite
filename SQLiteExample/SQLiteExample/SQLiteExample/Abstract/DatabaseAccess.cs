@@ -30,7 +30,7 @@ namespace SQLiteExample.Abstract
             return database.Table<T>().Where(i => i.ID == id).FirstOrDefaultAsync();
         }
 
-        public Task<int> SaveItemAsync<T>(T item) where T : ATable, new()
+        public Task<int> InsertOrUpdateItemAsync<T>(T item) where T : ATable, new()
         {
             if (item.ID != 0)
             {

@@ -16,22 +16,22 @@ namespace SQLiteExample.SimpleDatabase
         }
 
 
-        public List<TodoItem> GetItemsAsync()
+        public List<TodoItem> GetItems()
         {
             return database.Table<TodoItem>().ToList();
         }
 
-        public List<TodoItem> GetItemsNotDoneAsync()
+        public List<TodoItem> GetItemsViaRawQuery()
         {
-            return database.Query<TodoItem>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+            return database.Query<TodoItem>("SELECT * FROM [TodoItem]");
         }
 
-        public TodoItem GetItemAsync(int id)
+        public TodoItem GetItem(int id)
         {
             return database.Table<TodoItem>().FirstOrDefault(i => i.ID == id);
         }
 
-        public int SaveItemAsync(TodoItem item)
+        public int InsertOrUpdateItem(TodoItem item)
         {
             if (item.ID != 0)
             {
